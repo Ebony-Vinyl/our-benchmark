@@ -6,6 +6,9 @@ dist/
 server/server-data/
 server/server-data.bak-*
 
+# 完整题库数据集（体积大，用 data/fetch_benchmarks.py 重新抓取，或从线上服务器 /api/v1/datasets 分发）
+data/benchmarks-full/
+
 # 本地开发截图（只保留视觉检查产物 shots/vcheck/）
 shots/*.png
 

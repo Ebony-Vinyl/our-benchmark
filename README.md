@@ -75,6 +75,8 @@
 ## 快速开始（开发）
 
 ```bash
+git clone https://github.com/Ebony-Vinyl/our-benchmark.git
+cd our-benchmark
 npm install                 # 安装 Electron（国内走 npmmirror，见 .npmrc）
 npm start                   # 启动桌面应用
 npm run server              # 本地起服务端 :8600
@@ -83,7 +85,8 @@ node test/e2e-electron.js   # Electron 全链路 E2E（跑分→登录→上传�
 node test/visual-check.js   # 视觉检查：CDP 驱动 Electron，全页面×多宽度截图 + 渲染报错 + 横向溢出检测
 ```
 
-数据集抓取与更新：`python data/fetch_benchmarks.py [--only gpqa,...]`（经 hf-mirror）
+> 完整题库不进仓库（27MB）：需要时运行 `python data/fetch_benchmarks.py` 抓取（经 hf-mirror），或直接由线上服务器 `/api/v1/datasets` 分发。
+> 若 github.com 直连被断，为本仓库设置代理后再拉取/推送：`git config http.proxy socks5://127.0.0.1:7890`（端口按本机代理调整）。
 
 ## 目录结构
 

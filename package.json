@@ -1,0 +1,64 @@
+{
+  "name": "our-benchmark",
+  "productName": "Our Benchmark",
+  "version": "1.0.0",
+  "description": "安兔兔式的大模型桌面跑分工具 — 检测本地 AI Agent，运行开源 Benchmark，出分并上传全球榜单",
+  "main": "src/main/main.js",
+  "author": "Our Benchmark Team",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/run-all.js",
+    "test:scorer": "node test/scorer.test.js",
+    "test:suites": "node test/suites.test.js",
+    "test:server": "node test/server.test.js",
+    "test:e2e": "node test/e2e-electron.js",
+    "smoke": "electron . --smoke",
+    "server": "node server/server.js",
+    "server:dev": "node server/server.js --dev",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "build": {
+    "appId": "ai.ourbenchmark.app",
+    "productName": "Our Benchmark",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**",
+      "benchmarks/**",
+      "package.json",
+      "!server",
+      "!data",
+      "!test",
+      "!deploy",
+      "!shots",
+      "!*.log"
+    ],
+    "extraResources": [],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "src/renderer/assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Our Benchmark"
+    }
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

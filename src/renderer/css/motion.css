@@ -1,0 +1,266 @@
+/* ============================================================
+   Motion layer — transforms, opacity & clip only
+   曲线族：--ease-out (expo) 滑行 · --ease-spring 过冲回弹
+   ============================================================ */
+
+/* ---- entrance primitives ---- */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalIn { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateX(-14px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(36, 123, 80, 0.35); }
+  70% { box-shadow: 0 0 0 6px rgba(36, 123, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(36, 123, 80, 0); }
+}
+@keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes rowIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes consoleIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes radarIn { from { opacity: 0; transform: scale(0.18); } to { opacity: 1; transform: scale(1); } }
+@keyframes blink { 0%, 45% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* ---- hero copy：逐字压印，字距节奏 --d 由页面注入 ---- */
+@keyframes chIn {
+  from { opacity: 0; transform: translateY(1.06em) rotate(4.5deg); }
+  55% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+body.ready .hero .ch { animation: chIn 0.82s var(--ease-out) both; animation-delay: calc(0.05s + var(--d, 0) * 34ms); }
+body.ready .hero-sub { animation: riseIn 0.8s var(--ease-out) 0.74s both; }
+body.ready .hero-actions { animation: riseIn 0.8s var(--ease-out) 0.42s both; }
+body.ready .hero-meta { animation: riseIn 0.8s var(--ease-out) 0.5s both; }
+body.ready .hero-instrument { animation: riseIn 0.9s var(--ease-out) 0.24s both; }
+
+/* ---- scroll reveal：对焦式入场（虚 → 实） ---- */
+.reveal { opacity: 0; transform: translateY(16px); filter: blur(5px); }
+.reveal.in {
+  opacity: 1; transform: none; filter: blur(0);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), filter 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.reveal-now { animation: riseIn 0.65s var(--ease-out) both; }
+
+/* ---- odometer 数字滚轮 ---- */
+.od { display: inline-flex; }
+.od-col { display: inline-block; height: 1em; overflow: hidden; }
+.od-strip { display: flex; flex-direction: column; will-change: transform; }
+.od-strip b { display: block; height: 1em; line-height: 1; font-weight: inherit; text-align: center; }
+.od-fix { display: inline-block; height: 1em; line-height: 1; }
+
+/* ---- gauge / charts ---- */
+.gauge .tick { opacity: 0; animation: fadeIn 0.4s ease both; }
+body.ready .gauge .tick { animation-delay: calc(0.3s + var(--i, 0) * 5ms); }
+.gauge .arc-fill { stroke-dasharray: var(--dash); stroke-dashoffset: var(--offset); }
+.chart-fade { animation: fadeIn 0.8s ease both; }
+.chart-rise { animation: riseIn 0.7s var(--ease-out) both; }
+
+/* ---- ticker ---- */
+.ticker-track { animation: marquee 46s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+/* ---- leaderboard rows ---- */
+.anim-rows tbody tr { animation: rowIn 0.42s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 14ms); }
+.anim-rows tbody tr.expand-row { animation: none; }
+
+/* ---- table expansion ---- */
+.expand-panel { animation: expandIn 0.32s var(--ease-out) both; }
+@keyframes expandIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* ---- run chamber ---- */
+.scan-sweep { transform-origin: 50% 50%; animation: spin 4.2s linear infinite; }
+.scan-dot { animation: blink 1.6s steps(1) infinite; }
+.chamber-num .pct { transition: transform 0.18s var(--ease-out); }
+.chamber-num.tick .pct { transform: scale(1.012); }
+
+/* ============================================================
+   View Transitions — 方向感知
+   data-nav-dir="fwd"：新页自下浮入 · "back"：自上落回
+   ============================================================ */
+#view { view-transition-name: page; }
+::view-transition-old(page) {
+  animation: vtOut 0.3s cubic-bezier(0.5, 0, 0.75, 0.4) both;
+}
+::view-transition-new(page) {
+  animation: vtInFwd 0.58s var(--ease-out) both;
+}
+html[data-nav-dir="back"]::view-transition-new(page) {
+  animation-name: vtInBack;
+}
+@keyframes vtOut {
+  to { opacity: 0; transform: translateY(-12px) scale(0.993); filter: blur(2px); }
+}
+@keyframes vtInFwd {
+  from { opacity: 0.3; transform: translateY(24px) scale(0.996); filter: blur(5px); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes vtInBack {
+  from { opacity: 0.3; transform: translateY(-22px) scale(0.996); filter: blur(5px); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* run start：暗舱快门，自下而上合拢 */
+.vt-chamber::view-transition-old(page) {
+  animation: vtOut 0.24s ease-in both;
+}
+.vt-chamber::view-transition-new(page) {
+  animation: vtShutterUp 0.62s cubic-bezier(0.7, 0, 0.25, 1) both;
+}
+@keyframes vtShutterUp {
+  from { opacity: 0.55; transform: translateY(5%); clip-path: inset(100% 0 0 0); }
+  35% { opacity: 1; }
+  to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+/* run finish：揭幕，自上而下展开出成绩 */
+.vt-chamber-out::view-transition-old(page) {
+  animation: vtChamberOut 0.3s ease-in both;
+}
+.vt-chamber-out::view-transition-new(page) {
+  animation: vtCurtain 0.66s var(--ease-out) both;
+}
+@keyframes vtChamberOut {
+  to { opacity: 0; transform: translateY(-4%) scale(0.99); }
+}
+@keyframes vtCurtain {
+  from { opacity: 0.4; clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+/* ---- 校准扫描线：每次页面切换，一根朱红细线扫过纸张 ---- */
+.vt-line {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  z-index: 9;
+  pointer-events: none;
+}
+html.vt-running .vt-line { animation: sweepFwd 0.62s cubic-bezier(0.65, 0.05, 0.36, 1) both; }
+html.vt-running[data-nav-dir="back"] .vt-line { animation-name: sweepBack; }
+@keyframes sweepFwd {
+  0% { top: 0%; opacity: 0; transform: scaleX(0.3); }
+  14% { opacity: 0.85; transform: scaleX(1); }
+  86% { opacity: 0.85; }
+  100% { top: 100%; opacity: 0; transform: scaleX(1); }
+}
+@keyframes sweepBack {
+  0% { top: 100%; opacity: 0; transform: scaleX(0.3); }
+  14% { opacity: 0.85; transform: scaleX(1); }
+  86% { opacity: 0.85; }
+  100% { top: 0%; opacity: 0; transform: scaleX(1); }
+}
+
+/* ---- 导航滑动指示器 ---- */
+.nav { position: relative; }
+.nav-ind {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 34px;
+  border-radius: var(--radius-control);
+  background: var(--active);
+  z-index: 0;
+  transition: transform 0.55s var(--ease-out);
+  will-change: transform;
+}
+.nav-link { position: relative; z-index: 1; }
+html.nav-ind-ready .nav-link.active { background: transparent; }
+
+/* ---- 页签滑动下划线 ---- */
+.tabs { position: relative; }
+.tabs-ind {
+  position: absolute;
+  bottom: -1px;
+  left: 0; width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: left 0.45s var(--ease-out), width 0.45s var(--ease-out);
+}
+.tabs[data-ind] .tab.on::after { display: none; }
+
+/* ---- 按钮光泽扫过（主/强调色专用） ---- */
+.btn-primary, .btn-accent { position: relative; overflow: hidden; }
+.btn-primary::after, .btn-accent::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: 34%;
+  transform: translateX(-130%) skewX(-22deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  pointer-events: none;
+}
+.btn-primary:hover::after, .btn-accent:hover::after {
+  transform: translateX(440%) skewX(-22deg);
+  transition: transform 0.75s var(--ease-out);
+}
+
+/* ---- 选中态的弹簧反馈 ---- */
+@keyframes popIn { from { transform: scale(0.6); } to { transform: scale(1); } }
+.agent-opt.on .radio::after, .check.on::after { animation: popIn 0.32s var(--ease-spring) both; }
+.chip.on { animation: chipPop 0.34s var(--ease-spring); }
+@keyframes chipPop { from { transform: scale(0.9); } to { transform: scale(1); } }
+
+/* ---- 行悬停的轻微位移 ---- */
+.agent-row, .thread-row, .suite-line, .hist-row:not(.head), .lb-line {
+  transition: transform 0.35s var(--ease-out), background-color 0.15s ease;
+}
+.thread-row:hover, .hist-row:not(.head):hover, .agent-row:hover { transform: translateX(3px); }
+
+/* ---- 朱印：结果页的盖章时刻 ---- */
+.stamp {
+  display: inline-grid; place-items: center;
+  min-width: 66px; height: 66px; padding: 0 8px;
+  border: 2.5px solid currentColor;
+  border-radius: 12px;
+  font-family: var(--font-serif);
+  font-size: 21px; font-weight: 700; line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.stamp.in { animation: stampIn 0.55s cubic-bezier(0.3, 1.35, 0.55, 1) both; animation-delay: 0.9s; }
+@keyframes stampIn {
+  0% { opacity: 0; transform: rotate(-16deg) scale(1.75); }
+  55% { opacity: 1; }
+  72% { transform: rotate(-7deg) scale(0.965); }
+  100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+
+/* ---- 结果页头部编排 ---- */
+.result-hero-grid > * { animation: riseIn 0.75s var(--ease-out) both; }
+.result-hero-grid > :nth-child(2) { animation-delay: 0.14s; }
+
+/* ---- no View Transitions support: a short fade ---- */
+.view-fallback { animation: riseIn 0.34s var(--ease-out) both; }
+
+/* ---- button / row feedback ---- */
+.btn, .icon-btn, .nav-link, .tab, .chip, .agent-opt, .suite-opt, .thread-row, .wc {
+  transition-property: background-color, border-color, color, transform, opacity;
+  transition-duration: 0.16s;
+  transition-timing-function: ease;
+}
+.btn:active { transform: translateY(1px); }
+
+/* ---- focus ---- */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero .ch { transform: none !important; opacity: 1 !important; animation: none !important; }
+  .hero-sub, .hero-actions, .hero-meta, .hero-instrument { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .ticker-track { animation: none !important; }
+  .stamp { opacity: 1 !important; }
+  .od-strip { transition: none !important; }
+  ::view-transition-old(page), ::view-transition-new(page) { animation: none !important; }
+  .vt-line { display: none !important; }
+}

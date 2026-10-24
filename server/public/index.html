@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; script-src 'self'; connect-src 'self';">
+<title>Our Benchmark — 全球大模型公开跑分榜</title>
+<meta name="description" content="由社区桌面端运行 16 套开源题库生成的全球大模型跑分榜：智能指数、代码、科学、通用、智能体与长上下文。">
+<link rel="stylesheet" href="fonts-sans.css">
+<link rel="stylesheet" href="fonts-serif.css">
+<link rel="stylesheet" href="fonts-mono.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="site">
+  <header class="site-head">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 28 28" width="26" height="26" fill="none">
+          <rect x="1.25" y="1.25" width="25.5" height="25.5" rx="6" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M14 7.5v13M7.5 14h13" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
+          <circle cx="14" cy="14" r="4.1" stroke="currentColor" stroke-width="1.3"/>
+          <circle cx="14" cy="14" r="1.5" fill="var(--accent)"/>
+        </svg>
+      </span>
+      <span class="brand-text"><b>Our Benchmark</b><span>全球公开跑分榜</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#leaderboard" class="on">榜单</a>
+      <a href="#suites">题库</a>
+      <a href="#method">口径</a>
+    </nav>
+    <div class="head-right">
+      <span class="status" id="status"><i></i><span>连接中</span></span>
+      <a class="btn btn-primary btn-sm" href="#leaderboard">浏览榜单</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>全球大模型的<br>公开跑分榜。</h1>
+        <p class="hero-sub">由社区桌面端运行 SWE-bench、HLE、GPQA、AIME、Terminal-Bench 等 16 套开源题库生成。社区提交，全程可复现，智能指数采用 AA 风格的四维体系。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#leaderboard">查看榜单 <span aria-hidden="true">→</span></a>
+          <a class="btn btn-lg" href="#method">评测口径</a>
+        </div>
+      </div>
+      <div class="hero-stats-wrap">
+        <p class="hero-stats-note">社区提交 · 更新于 <span id="heroUpdated">—</span></p>
+        <div class="hero-stats">
+          <div><span>上榜模型</span><b id="stModels">—</b></div>
+          <div><span>累计成绩</span><b id="stScores">—</b></div>
+          <div><span>社区用户</span><b id="stUsers">—</b></div>
+          <div><span>题库套件</span><b id="stSuites">—</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"><span><em>OUR BENCHMARK</em><i>正在读取榜单</i></span></div></div>
+
+    <section id="leaderboard" class="section">
+      <div class="section-head">
+        <div>
+          <h2>智能指数榜</h2>
+          <p>同一模型取最高分；模拟成绩与真实跑分分开标注。点击任意一行展开六维分析。</p>
+        </div>
+        <span class="updated" id="updated"></span>
+      </div>
+
+      <div class="spotlight" id="spotlight">
+        <div class="spotlight-lead"><span class="tag">当前第一</span><h3>—</h3><p>正在读取服务器</p></div>
+        <div class="spotlight-bars" id="spotBars"></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs" id="modeTabs">
+          <button class="tab on" data-mode="">全部</button>
+          <button class="tab" data-mode="real">真实跑分</button>
+          <button class="tab" data-mode="mock">模拟跑分</button>
+        </div>
+        <div class="toolbar-right">
+          <select class="select" id="sortBy" aria-label="排序字段">
+            <option value="intelligenceIndex">按智能指数</option>
+            <option value="totalScore">按总分</option>
+            <option value="accuracyOverall">按正确率</option>
+          </select>
+          <input class="search" id="search" placeholder="搜索模型或 Agent" aria-label="搜索模型或 Agent">
+          <button class="btn btn-sm" id="colsBtn">展开列</button>
+        </div>
+      </div>
+
+      <div class="table-wrap" id="tableWrap">
+        <table class="data" id="lbTable">
+          <thead id="lbHead"></thead>
+          <tbody id="lbBody"><tr><td colspan="8"><div class="loading"><span class="spinner"></span>加载中</div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="suites" class="section">
+      <div class="section-head">
+        <div>
+          <h2>题库套件</h2>
+          <p>全部为公开开源镜像，可在桌面端按需下载完整集。未收录的 AA 私有评测不参与计算。</p>
+        </div>
+        <span class="updated" id="suiteCount"></span>
+      </div>
+      <div class="table-wrap">
+        <table class="data suite-table">
+          <thead><tr><th>套件</th><th>类别</th><th class="num">题量</th><th class="num">体积</th><th>来源</th></tr></thead>
+          <tbody id="suiteBody"><tr><td colspan="5"><div class="loading"><span class="spinner"></span></div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="method" class="section method">
+      <div class="section-head">
+        <div>
+          <h2>评测口径</h2>
+          <p>把分数放在它该在的位置：公开题库、固定采样、可复现的判分。</p>
+        </div>
+      </div>
+      <div class="method-grid">
+        <div>
+          <h3>智能指数</h3>
+          <p>综合智能指数采用四维体系：智能体、代码、通用能力、科学推理各占 25%。缺失维度自动重分配权重，不把未测当零分。</p>
+        </div>
+        <div>
+          <h3>判分方式</h3>
+          <p>选择题按选项判分；数学题按最终数值并带容差；简答题归一化匹配；SWE 类按金标补丁相似度近似，官方容器判分为路线图。</p>
+        </div>
+        <div>
+          <h3>模拟与真实</h3>
+          <p>模拟模式用确定性画像生成分数，用于流程演示与横向对比，不产生 API 费用。真实模式需要用户显式解锁并自担 token 成本。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="foot-word">Our Benchmark</div>
+    <div class="foot-meta">
+      <span>社区驱动 · 公开题库 · 可复现</span>
+      <span class="mono" id="footTime"></span>
+    </div>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+==============================================================================
+princeton-nlp/SWE-bench_Verified
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+ rows: 500 | cols: ['repo', 'instance_id', 'base_commit', 'patch', 'test_patch', 'problem_statement', 'hints_text', 'created_at', 'version', 'FAIL_TO_PASS', 'PASS_TO_PASS', 'environment_setup_commit', 'difficulty']
+  repo: str = astropy/astropy
+  instance_id: str = astropy__astropy-12907
+  base_commit: str = d16bfe05a744909de4b27f5875fe0d4ed41ce607
+  patch: str = diff --git a/astropy/modeling/separable.py b/astropy/modeling/separable.py\n--- a/astropy/modeling/separable.py\n+++ b/astropy/modeling/separable.py\n@@ -242,7 +242,7 @@ def _cstack(left, right):\n   
+  test_patch: str = diff --git a/astropy/modeling/tests/test_separable.py b/astropy/modeling/tests/test_separable.py\n--- a/astropy/modeling/tests/test_separable.py\n+++ b/astropy/modeling/tests/test_separable.py\n@@ -28
+  problem_statement: str = Modeling's `separability_matrix` does not compute separability correctly for nested CompoundModels\nConsider the following model:\n\n```python\nfrom astropy.modeling import models as m\nfrom astro
+  hints_text: str = 
+  created_at: str = 2022-03-03T15:14:54Z
+  version: str = 4.3
+  FAIL_TO_PASS: str = ["astropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]", "astropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]"]
+  PASS_TO_PASS: str = ["astropy/modeling/tests/test_separable.py::test_coord_matrix", "astropy/modeling/tests/test_separable.py::test_cdot", "astropy/modeling/tests/test_separable.py::test_cstack", "astropy/modeling/tests/
+  environment_setup_commit: str = 298ccb478e6bf092953bca67a3d29dc6c35f6752
+  difficulty: str = 15 min - 1 hour
+==============================================================================
+ScaleAI/SWE-bench_Pro
+ rows: 642 | cols: ['repo', 'instance_id', 'base_commit', 'patch', 'test_patch', 'problem_statement', 'requirements', 'interface', 'repo_language', 'fail_to_pass', 'pass_to_pass', 'issue_specificity', 'issue_categories', 'before_repo_set_cmd', 'selected_test_files_to_run', 'dockerhub_tag', 'docker_image', 'hard', 'version']
+  repo: str = NodeBB/NodeBB
+  instance_id: str = instance_NodeBB__NodeBB-00c70ce7b0541cfc94afe567921d7668cdc8f4ac-vnan
+  base_commit: str = ae3fa85f40db0dca83d19dda1afb96064dffcc83
+  patch: str = diff --git a/src/controllers/admin/cache.js b/src/controllers/admin/cache.js\nindex 43d6f4ddcab4..2faad03fc2bb 100644\n--- a/src/controllers/admin/cache.js\n+++ b/src/controllers/admin/cache.js\n@@ -6
+  test_patch: str = diff --git a/test/mocks/databasemock.js b/test/mocks/databasemock.js\nindex 5cb8af1d34..507f29d6fc 100644\n--- a/test/mocks/databasemock.js\n+++ b/test/mocks/databasemock.js\n@@ -194,7 +194,7 @@ async
+  problem_statement: str = ## Title: Post cache access and slug existence checks behave inconsistently\n\n\n### Description\nPost cache availability depends on when different application modules load and access the cache, which
+  requirements: str = - The post cache must use a shared instance so all cache operations observe the same state.\n\n- The post cache module must expose `getOrCreate()`, which returns the shared cache instance and creates 
+  interface: str = - Path: `src/posts/cache.js`\n- Name: `getOrCreate`\n- Type: function\n- Input: `NA`\n- Output: `Cache instance object`\n- Description: Returns the shared post cache instance, creating it on first use
+  repo_language: str = js
+  fail_to_pass: str = ["test/user.js | User | socket methods | should return true/false if user/group exists or not", "test/socket.io.js | socket.io | should toggle caches"]
+  pass_to_pass: str = []
+  issue_specificity: str = ["integration_bug"]
+  issue_categories: str = ["back_end_knowledge","database_knowledge","performance_knowledge"]
+  before_repo_set_cmd: str = git reset --hard ae3fa85f40db0dca83d19dda1afb96064dffcc83\ngit clean -fd\ngit checkout ae3fa85f40db0dca83d19dda1afb96064dffcc83\ngit apply --verbose /tests/test_patch.patch
+  selected_test_files_to_run: str = ["test/mocks/databasemock.js", "test/translator.js", "test/user.js", "test/socket.io.js", "test/database.js", "test/meta.js"]
+  dockerhub_tag: str = nodebb.nodebb-NodeBB__NodeBB-00c70ce7b0541cfc94afe567921d7668cdc8f4ac
+  docker_image: str = ghcr.io/scaleapi/swe-bench_pro-v2:instance_NodeBB__NodeBB-00c70ce7b0541cfc94afe567921d7668cdc8f4ac-vnan
+  hard: bool = False
+  version: str = 2.0.0
+==============================================================================
+cais/hle
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--cais--hle. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+ FAIL: DatasetNotFoundError Dataset 'cais/hle' is a gated dataset on the Hub. You must be authenticated to access it.
+==============================================================================
+TIGER-Lab/MMLU-Pro
+ rows: 12032 | cols: ['question_id', 'question', 'options', 'answer', 'answer_index', 'cot_content', 'category', 'src']
+  question_id: int = 70
+  question: str = Typical advertising regulatory bodies suggest, for example that adverts must not: encourage _________, cause unnecessary ________ or _____, and must not cause _______ offence.
+  options: list = ['Safe practices, Fear, Jealousy, Trivial', 'Unsafe practices, Distress, Joy, Trivial', 'Safe practices, Wants, Jealousy, Trivial', 'Safe practices, Distress, Fear, Trivial', 'Unsafe practices, Wants,
+  answer: str = I
+  answer_index: int = 8
+  cot_content: str = 
+  category: str = business
+  src: str = ori_mmlu-business_ethics
+==============================================================================
+HuggingFaceH4/aime_2024
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--HuggingFaceH4--aime_2024. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Generating train split:   0%|          | 0/30 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 30/30 [00:00<00:00, 234.28 examples/s]Generating train split: 100%|██████████| 30/30 [00:00<00:00, 221.79 examples/s]
+ rows: 30 | cols: ['id', 'problem', 'solution', 'answer', 'url', 'year']
+  id: int = 60
+  problem: str = Every morning Aya goes for a $9$-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of $s$ kilometers per hour, the walk takes her 4 hours, including $t$ min
+  solution: str = $\frac{9}{s} + t = 4$ in hours and $\frac{9}{s+2} + t = 2.4$ in hours.\nSubtracting the second equation from the first, we get, \n$\frac{9}{s} - \frac{9}{s+2} = 1.6$\nMultiplying by $(s)(s+2)$, we get
+  answer: str = 204
+  url: str = https://artofproblemsolving.com/wiki/index.php/2024_AIME_I_Problems/Problem_1
+  year: str = 2024
+==============================================================================
+MathArena/aime_2025
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--MathArena--aime_2025. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Generating train split:   0%|          | 0/30 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 30/30 [00:00<00:00, 1665.13 examples/s]
+ rows: 30 | cols: ['problem_idx', 'problem', 'answer', 'problem_type']
+  problem_idx: int = 1
+  problem: str = Find the sum of all integer bases $b>9$ for which $17_b$ is a divisor of $97_b.$
+  answer: int = 70
+  problem_type: list = ['Number Theory']
+==============================================================================
+MathArena/hmmt_feb_2025
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--MathArena--hmmt_feb_2025. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Generating train split:   0%|          | 0/30 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 30/30 [00:00<00:00, 3750.05 examples/s]
+ rows: 30 | cols: ['problem_idx', 'problem', 'answer', 'problem_type']
+  problem_idx: int = 1
+  problem: str = Compute the sum of the positive divisors (including $1$) of $9!$ that have units digit $1$.
+  answer: str = 103
+  problem_type: list = ['Number Theory']
+==============================================================================
+hendrydong/gpqa_diamond
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--hendrydong--gpqa_diamond. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Generating test split:   0%|          | 0/198 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 198/198 [00:00<00:00, 21993.44 examples/s]
+ FAIL: ValueError Unknown split "train". Should be one of ['test'].
+==============================================================================
+harborframework/terminal-bench
+ FAIL: ValueError Couldn't infer the same data file format for all splits. Got {NamedSplit('validation'): (None, {}), NamedSplit('test'): ('pdffolder', {})}
+==============================================================================
+harborframework/terminal-bench-science
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--harborframework--terminal-bench-science. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+ FAIL: DataFilesNotFoundError No (supported) data files found in harborframework/terminal-bench-science
+==============================================================================
+Leo-dm/AutomationBench
+ rows: 12 | cols: ['task_key', 'domain', 'split', 'node_count', 'tree_edges', 'pruned_nodes', 'normal_complete_leaves', 'generation_stop_leaves', 'baseline_score', 'baseline_path_cost_cny', 'best_normal_tree_score', 'qualified_leaves', 'teacher_samples', 'known_collection_cost_cny', 'unknown_cost_attempts', 'review_path_in_archive']
+  task_key: str = finance:4061
+  domain: str = finance
+  split: str = train
+  node_count: int = 120
+  tree_edges: int = 102
+  pruned_nodes: int = 46
+  normal_complete_leaves: int = 6
+  generation_stop_leaves: int = 0
+  baseline_score: float = 0.3333333333333333
+  baseline_path_cost_cny: float = 0.1107721
+  best_normal_tree_score: float = 1.0
+  qualified_leaves: int = 1
+  teacher_samples: int = 25
+  known_collection_cost_cny: float = 7.0501068
+  unknown_cost_attempts: int = 0
+  review_path_in_archive: str = train12_round1_r2/tasks/finance__4061/review/index.html
+==============================================================================
+UpstageShareSpace/automationBench
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--UpstageShareSpace--automationBench. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 600 examples [00:00, 19145.66 examples/s]
+ rows: 600 | cols: ['example_id', 'prompt', 'answer', 'info']
+  example_id: int = 4001
+  prompt: list = [{'role': 'system', 'content': 'You are a workflow automation agent. Execute the requested tasks using the available tools. Do not ask clarifying questions - use the information provided and make reas
+  answer: str = 
+  info: str = {"zapier_tools": ["gmail_find_email", "gmail_get_email_by_id", "google_sheets_get_many_rows", "google_sheets_add_row", "google_sheets_find_worksheet", "google_sheets_get_spreadsheet_by_id", "google_dr
+==============================================================================
+openai/mrcr
+C:\Users\HUAWEI\AppData\Roaming\Python\Python312\site-packages\huggingface_hub\file_download.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in D:\hf-cache\hub\datasets--openai--mrcr. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)

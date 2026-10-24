@@ -1,0 +1,16 @@
+# 依赖与构建产物
+node_modules/
+dist/
+
+# 服务器运行时数据（含用户 token，绝不入库）
+server/server-data/
+server/server-data.bak-*
+
+# 本地开发截图（只保留视觉检查产物 shots/vcheck/）
+shots/*.png
+
+# 日志与临时文件
+*.log
+*.log.*
+.DS_Store
+Thumbs.db
